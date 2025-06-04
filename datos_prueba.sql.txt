@@ -1,0 +1,41 @@
+-- =============================================
+-- SCRIPT DE CARGA DE DATOS DE PRUEBA
+-- Proyecto: Sistema de Gestión de Nuevos Colaboradores
+-- =============================================
+
+-- ===========================
+-- Tabla: COMPUTERS
+-- ===========================
+INSERT INTO computers (brand, model, serial_number, specifications, status) VALUES
+('Dell', 'Latitude 7420', 'DELL-001-2024', 'Intel i7 • 16GB RAM • 512GB SSD', 'available'),
+('Apple', 'MacBook Pro 13"', 'APPLE-002-2024', 'M2 • 16GB RAM • 256GB SSD', 'available'),
+('Lenovo', 'ThinkPad X1', 'LENOVO-003-2024', 'Intel i5 • 8GB RAM • 256GB SSD', 'available'),
+('HP', 'EliteBook 840', 'HP-004-2024', 'Intel i7 • 32GB RAM • 1TB SSD', 'maintenance'),
+('Asus', 'ZenBook 14', 'ASUS-005-2024', 'AMD Ryzen 7 • 16GB RAM • 512GB SSD', 'available'),
+('Microsoft', 'Surface Laptop 5', 'MS-006-2024', 'Intel i5 • 8GB RAM • 256GB SSD', 'available');
+
+-- ===========================
+-- Tabla: USERS
+-- ===========================
+INSERT INTO users (name, email, area, role, status, observations) VALUES
+('María García López', 'maria.garcia@empresa.com', 'Recursos Humanos', 'Gerente', 'approved', 'Usuario administrador de RRHH'),
+('Carlos Rodríguez Silva', 'carlos.rodriguez@empresa.com', 'Tecnología', 'Desarrollador', 'approved', 'Desarrollador senior'),
+('Ana Martínez Torres', 'ana.martinez@empresa.com', 'Ventas', 'Especialista', 'pending', 'Nueva incorporación'),
+('Luis Fernández Ruiz', 'luis.fernandez@empresa.com', 'Marketing', 'Analista', 'approved', NULL),
+('Carmen Sánchez Mora', 'carmen.sanchez@empresa.com', 'Finanzas', 'Coordinador', 'pending', 'Requiere acceso a sistemas financieros');
+
+-- ===========================
+-- Tabla: ACCESS_REQUESTS
+-- ===========================
+INSERT INTO access_requests (user_id, user_name, request_type, applications, justification, status) VALUES
+(1, 'María García López', 'new_access', ARRAY['sap', 'office365'], 'Necesito acceso para gestión de personal y reportes', 'approved'),
+(2, 'Carlos Rodríguez Silva', 'new_access', ARRAY['github', 'aws'], 'Acceso para desarrollo y despliegue de aplicaciones', 'approved'),
+(3, 'Ana Martínez Torres', 'new_access', ARRAY['salesforce', 'office365'], 'Acceso para gestión de clientes y comunicación', 'pending'),
+(4, 'Luis Fernández Ruiz', 'modify_permissions', ARRAY['office365'], 'Necesito permisos adicionales para campañas', 'pending');
+
+-- ===========================
+-- Tabla: COMPUTER_ASSIGNMENTS
+-- ===========================
+INSERT INTO computer_assignments (computer_id, computer_name, serial_number, user_id, user_name, assignment_date, status) VALUES
+(1, 'Dell Latitude 7420', 'DELL-001-2024', 1, 'María García López', CURRENT_TIMESTAMP - INTERVAL '30 days', 'active'),
+(2, 'Apple MacBook Pro 13"', 'APPLE-002-2024', 2, 'Carlos Rodríguez Silva', CURRENT_TIMESTAMP - INTERVAL '15 days', 'active');
