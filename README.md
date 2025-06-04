@@ -34,15 +34,33 @@ new-collaborators-api/
 ---
 
 ## 🔐 Variables de Entorno (`.env`)
+## Funcionalidades
 
-```env
-PORT=3000
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=collaborators_db
-DB_USER=postgres
-DB_PASSWORD=tu_contraseña
-```
+### Usuarios
+- Crear, listar, actualizar y eliminar usuarios
+- Cada usuario tiene: nombre, correo, área, rol y estado
+
+### Solicitudes de Acceso
+- Registrar solicitudes por tipo (software, hardware, permisos)
+- Selección de aplicaciones y justificación
+- Cambiar estado: pendiente, aprobado, rechazado
+
+### Asignación de Computadores
+- Listar computadores disponibles
+- Asignar computadores a nuevos ingresos
+- Guardar historial de asignaciones
+
+---
+
+## Tecnologías
+
+- **Node.js**
+- **Express**
+- **Sequelize** (ORM)
+- **PostgreSQL**
+- **CORS**, **dotenv**, **morgan**, etc.
+
+
 
 ---
 
@@ -58,8 +76,19 @@ cd new-collaborators-api
 ```bash
 npm install
 ```
+3. Corre las migraciones o crea manualmente las tablas según el esquema definido en los modelos.
 
-3. Configura tu `.env` con las credenciales correctas.
+4. Crea un archivo `.env` en la raíz con el siguiente contenido:
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=employee_management
+DB_USER=postgres
+DB_PASSWORD=tu_contraseña
+```
+
 
 4. Ejecuta el proyecto:
 ```bash
