@@ -11,6 +11,7 @@ Este es el backend de la aplicación para la gestión de nuevos colaboradores de
 - Jest (pruebas unitarias)
 - Dotenv
 - CORS / Helmet / Morgan
+- Nodemailer / AWS SES (envío de correos)
 
 ---
 
@@ -34,33 +35,22 @@ new-collaborators-api/
 ---
 
 ## 🔐 Variables de Entorno (`.env`)
-## Funcionalidades
 
-### Usuarios
-- Crear, listar, actualizar y eliminar usuarios
-- Cada usuario tiene: nombre, correo, área, rol y estado
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=collaborators_db
+DB_USER=postgres
+DB_PASSWORD=tu_contraseña
 
-### Solicitudes de Acceso
-- Registrar solicitudes por tipo (software, hardware, permisos)
-- Selección de aplicaciones y justificación
-- Cambiar estado: pendiente, aprobado, rechazado
-
-### Asignación de Computadores
-- Listar computadores disponibles
-- Asignar computadores a nuevos ingresos
-- Guardar historial de asignaciones
-
----
-
-## Tecnologías
-
-- **Node.js**
-- **Express**
-- **Sequelize** (ORM)
-- **PostgreSQL**
-- **CORS**, **dotenv**, **morgan**, etc.
-
-
+# Envío de correos (AWS SES o SMTP)
+EMAIL_SERVICE=ses
+EMAIL_USER=notificaciones@tu-dominio.com
+EMAIL_REGION=us-east-1
+EMAIL_ACCESS_KEY_ID=your_aws_key
+EMAIL_SECRET_ACCESS_KEY=your_aws_secret
+```
 
 ---
 
@@ -76,19 +66,8 @@ cd new-collaborators-api
 ```bash
 npm install
 ```
-3. Corre las migraciones o crea manualmente las tablas según el esquema definido en los modelos.
 
-4. Crea un archivo `.env` en la raíz con el siguiente contenido:
-
-```env
-PORT=3000
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=employee_management
-DB_USER=postgres
-DB_PASSWORD=tu_contraseña
-```
-
+3. Configura tu `.env` con las credenciales correctas.
 
 4. Ejecuta el proyecto:
 ```bash
@@ -133,6 +112,25 @@ npm run test      # Ejecuta pruebas unitarias con Jest
 
 ---
 
+## ✉️ Notificaciones por Correo
+
+El sistema está preparado para enviar notificaciones automáticas por correo, por ejemplo:
+
+- Confirmación de registro de solicitudes
+- Notificación de aprobación o rechazo
+- Aviso de asignación de computador
+
+Usa **Nodemailer** y puede ser configurado con **AWS SES** o SMTP tradicional.  
+La configuración se hace en el archivo `.env`.
+
+Servicio de ejemplo:
+```ts
+// email.service.ts
+sendEmail(to: string, subject: string, html: string): Promise<void>
+```
+
+---
+
 ## 🧪 Pruebas
 
 Las pruebas se encuentran en la carpeta `tests/`. Ejecuta:
@@ -168,5 +166,3 @@ Puedes cargar datos de ejemplo ejecutando el script `datos_prueba.sql.txt`.
 
 - Helmet para proteger cabeceras HTTP
 - CORS habilitado para permitir peticiones entre frontend y backend
-
-
